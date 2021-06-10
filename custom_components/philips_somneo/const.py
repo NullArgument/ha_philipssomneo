@@ -4,7 +4,7 @@ from datetime import timedelta
 from homeassistant.helpers import config_validation as cv
 from homeassistant.const import (TEMP_CELSIUS, PERCENTAGE)
 DOMAIN = 'philips_somneo'
-PREFIX = 'somneo_'
+PREFIX = 'Somneo '
 DATA_SOMNEO = 'data_somneo'
 DATA_PSC = 'PSC'
 VERSION = "0.2"
@@ -26,10 +26,10 @@ MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)
 
 
 SENSOR_TYPES = {
-    "temperature": ["temperature", TEMP_CELSIUS],
-    "humidity": ["humidity", PERCENTAGE],
-    "light": ["light", "lux"],
-    "noise": ["noise", "db"]
+    "temperature": ["Temperature", TEMP_CELSIUS],
+    "humidity": ["Humidity", PERCENTAGE],
+    "light": ["Light", "lux"],
+    "noise": ["Noise", "db"]
 }
 
 CONFIG_SCHEMA = vol.Schema({

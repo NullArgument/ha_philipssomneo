@@ -15,7 +15,7 @@ def setup(hass, config):
     """Setup the Somneo component."""
     try:
         conf = config[DOMAIN]
-        entity_id = DOMAIN + ".status"
+        #entity_id = DOMAIN + ".status"
         sensor_id = DOMAIN + ".sensors"
         name = conf.get(CONF_NAME, DEFAULT_NAME)
         host = conf.get(CONF_HOST, DEFAULT_HOST)
@@ -40,7 +40,7 @@ def setup(hass, config):
         hass.helpers.discovery.load_platform('sensor', DOMAIN, {}, config)
 
         
-        hass.states.set(entity_id, "Active", data)
+        #hass.states.set(entity_id, "Active", data)
         #### NOTHING BELOW THIS LINE ####
         # If Success:
         _LOGGER.info("Somneo_V1 has been set up!")
@@ -55,6 +55,6 @@ def setup(hass, config):
         return False
 
 
-@property
-def unique_id(self):
-    return UNIQUE_ID_PREFIX + ".status"
+#@property
+#def unique_id(self):
+#    return UNIQUE_ID_PREFIX + ".status"
