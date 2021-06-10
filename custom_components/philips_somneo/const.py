@@ -26,10 +26,10 @@ MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)
 
 
 SENSOR_TYPES = {
-    "temperature": ["Temperature", TEMP_CELSIUS],
-    "humidity": ["Humidity", PERCENTAGE],
-    "light": ["Light", "lux"],
-    "noise": ["Noise", "db"]
+    "temperature": ["Temperature", TEMP_CELSIUS, "mdi:thermometer"],
+    "humidity": ["Humidity", PERCENTAGE, "mdi:water-percent"],
+    "illuminance": ["Illuminance", "lux", "mdi:flare mdi-brightness-6"],
+    "noise": ["Noise", "db", "mdi:waveform"]
 }
 
 CONFIG_SCHEMA = vol.Schema({
@@ -54,7 +54,7 @@ ATTR_C_INT = "scan_interval"
 
 ATTR_S_TEMP = "temperature"
 ATTR_S_HUM = "humidity"
-ATTR_S_LIGHT = "light"
+ATTR_S_LIGHT = "illuminance"
 ATTR_S_NOISE = "noise"
 
 ATTR_L_ONOFF = "state"

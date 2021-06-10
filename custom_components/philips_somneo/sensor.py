@@ -40,6 +40,7 @@ class SomneoSensor(Entity):
         self.data = data
         self._name = (PREFIX + SENSOR_TYPES[sensor_types][0])
         self._unit_of_measurement = SENSOR_TYPES[sensor_types][1]
+        self.icon = SENSOR_TYPES[sensor_types][2]
         self.type = sensor_types
         self._state = None
 

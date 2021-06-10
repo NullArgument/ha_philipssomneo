@@ -32,7 +32,8 @@ class SomneoLight(LightEntity):
 
     def __init__(self, name, url, ctype, ltlvl):
         """Initialize an SomneoLight."""
-        self._name = name
+        #self._name = name
+        self._name = (PREFIX + "Light")
         self._state = None
         self._intensity = ltlvl
         self._colortype = ctype
