@@ -50,8 +50,8 @@ class SomneoSensor(Entity):
             return UNIQUE_ID_PREFIX + ".sensor.temperature"
         if self.type == "humidity":
             return UNIQUE_ID_PREFIX + ".sensor.humidity"
-        if self.type == "light":
-            return UNIQUE_ID_PREFIX + ".sensor.light"
+        if self.type == "illuminance":
+            return UNIQUE_ID_PREFIX + ".sensor.illuminance"
         if self.type == "noise":
             return UNIQUE_ID_PREFIX + ".sensor.noise"
 
@@ -81,8 +81,8 @@ class SomneoSensor(Entity):
             self._state = self.data.temperature
         if self.type == "humidity":
             self._state = self.data.humidity
-        if self.type == "light":
-            self._state = self.data.light
+        if self.type == "illuminance":
+            self._state = self.data.illuminance
         if self.type == "noise":
             self._state = self.data.noise
 
@@ -92,7 +92,7 @@ class SomneoData:
         """Initialize the data object."""
         self.temperature = None
         self.humidity = None
-        self.light = None
+        self.illuminance = None
         self.noise = None
         self.url = url
         self._scan_int = scan_int
@@ -115,7 +115,7 @@ class SomneoData:
             sensor_data = self.get_sensor_data()
             self.temperature = sensor_data['mstmp']
             self.humidity = sensor_data['msrhu']
-            self.light = sensor_data['mslux']
+            self.illuminance = sensor_data['mslux']
             self.noise = sensor_data['mssnd']
             self._updatets = time.monotonic()
         else:

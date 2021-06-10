@@ -28,7 +28,7 @@ MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)
 SENSOR_TYPES = {
     "temperature": ["Temperature", TEMP_CELSIUS, "mdi:thermometer"],
     "humidity": ["Humidity", PERCENTAGE, "mdi:water-percent"],
-    "illuminance": ["Illuminance", "lux", "mdi:flare mdi-brightness-6"],
+    "illuminance": ["Illuminance", "lux", "mdi:brightness-6"],
     "noise": ["Noise", "db", "mdi:waveform"]
 }
 
