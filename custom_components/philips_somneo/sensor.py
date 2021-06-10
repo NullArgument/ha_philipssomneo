@@ -15,6 +15,10 @@ from .const import *
 _LOGGER = logging.getLogger(__name__)
 
 
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+    """Set up platform."""
+    # Code for setting up your platform inside of the event loop.
+
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the Somneo sensor platform."""
     somneo_data = hass.data[DATA_PSC]
@@ -36,6 +40,19 @@ class SomneoSensor(Entity):
         self._unit_of_measurement = SENSOR_TYPES[sensor_types][1]
         self.type = sensor_types
         self._state = None
+
+    @property
+    def unique_id(self):
+        if self.type == "temperature":
+            return UNIQUE_ID_PREFIX + ".sensor.temperature"
+        if self.type == "humidity":
+            return UNIQUE_ID_PREFIX + ".sensor.humidity"
+        if self.type == "light":
+            return UNIQUE_ID_PREFIX + ".sensor.light"
+        if self.type == "noise":
+            return UNIQUE_ID_PREFIX + ".sensor.noise"
+
+        return UNIQUE_ID_PREFIX + ".sensors"
     @property
     def name(self):
         """Return the name of the sensor."""
@@ -48,6 +65,12 @@ class SomneoSensor(Entity):
     def unit_of_measurement(self):
         """Return the unit the value is expressed in."""
         return self._unit_of_measurement
+
+    async def async_update(self):
+        """Retrieve latest state."""
+        
+        self._state = await async_fetch_state()
+
     def update(self):
         """Get the latest data and updates the states."""
         self.data.update()
@@ -87,7 +110,3 @@ class SomneoData:
         self.humidity = sensor_data['msrhu']
         self.light = sensor_data['mslux']
         self.noise = sensor_data['mssnd']
-
-
-
-

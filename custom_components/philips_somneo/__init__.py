@@ -53,4 +53,6 @@ def setup(hass, config):
         return False
 
 
-
+@property
+def unique_id(self):
+    return UNIQUE_ID_PREFIX + ".status"

@@ -8,6 +8,8 @@ PREFIX = 'somneo_'
 DATA_SOMNEO = 'data_somneo'
 DATA_PSC = 'PSC'
 VERSION = "0.2"
+UNIQUE_ID_PREFIX = ""
+# "e8:c1:d7:08:8d:d1"
 
 DEFAULT_NAME = "somneo"
 DEFAULT_HOST = "192.168.2.131"

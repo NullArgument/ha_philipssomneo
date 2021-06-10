@@ -23,7 +23,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     name = somneo_data['name']
     url = 'https://' + host + ':' + port + '/di/v1/products/1/wulgt'
     ctype = 3
-    ltlvl = 15
+    ltlvl = 5
     add_entities([SomneoLight(name, url, ctype, ltlvl)])
 
 
@@ -41,6 +41,9 @@ class SomneoLight(LightEntity):
         self._session = requests.Session()
 
     @property
+    def unique_id(self):
+        return UNIQUE_ID_PREFIX + ".light"
+    @property
     def name(self):
         """Return the display name of this light."""
         return self._name
@@ -51,18 +54,62 @@ class SomneoLight(LightEntity):
     @property
     def should_poll(self):
         return False
-
+    @property
+    def lightLevel(self):
+        return self._intensity
+    @property
+    def colorType(self):
+        return self._colortype
 
     def turn_on(self, **kwargs):
         """Instruct the light to turn on."""
-        payload_on = {"ltlvl":15,"onoff":True,"tempy":False,"ctype":3,"ngtlt":False,"wucrv":[],"pwmon":False,"pwmvs":[0,0,0,0,0,0],"diman":0}
+        brightness = self.lightLevel
+        colorType = self.colorType
+
+        #for arg in kwargs:
+        #    _LOGGER.warning("Argument: " + arg)
+
+        if "brightness" in kwargs:
+            brightness = kwargs["brightness"]
+
+        if brightness > 25:
+            brightness = 25
+
+        if "hs_color" in kwargs:
+            hsColor = kwargs["hs_color"]
+            colorType = int(hsColor[0])
+
+        if colorType < 0:
+            colorType = 0
+        elif colorType > 3:
+            colorType = 3
+
+        payload_on = {"ltlvl":brightness,"onoff":True,"tempy":False,"ctype":colorType,"ngtlt":False,"wucrv":[],"pwmon":False,"pwmvs":[0,0,0,0,0,0],"diman":0}
         self._putReq(payload_on)
         self._state = True
         self.schedule_update_ha_state()
 
     def turn_off(self, **kwargs):
         """Instruct the light to turn off."""
-        payload_off = {"ltlvl":15,"onoff":False,"tempy":False,"ctype":3,"ngtlt":False,"wucrv":[],"pwmon":False,"pwmvs":[0,0,0,0,0,0],"diman":0}
+        brightness = self.lightLevel
+        colorType = self.colorType
+
+        if "brightness" in kwargs:
+            brightness = kwargs["brightness"]
+
+        if brightness > 25:
+            brightness = 25
+
+        if "hs_color" in kwargs:
+            hsColor = kwargs["hs_color"]
+            colorType = int(hsColor[0])
+
+        if colorType < 0:
+            colorType = 0
+        elif colorType > 3:
+            colorType = 3
+
+        payload_off = {"ltlvl":brightness,"onoff":False,"tempy":False,"ctype":colorType,"ngtlt":False,"wucrv":[],"pwmon":False,"pwmvs":[0,0,0,0,0,0],"diman":0}
         self._putReq(payload_off)
         self._state = False
         self.schedule_update_ha_state()
